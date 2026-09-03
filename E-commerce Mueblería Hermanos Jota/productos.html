@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Productos | Mueblería Hermanos Jota</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            <a href="index.html">
+                Hermanos Jota
+            </a>
+        </div>
+
+        <nav class="nav" aria-label="Navegación principal">
+            <ul>
+                <li>
+                    <a href="index.html">Inicio</a>
+                </li>
+
+                <li>
+                    <a href="productos.html" aria-current="page">
+                        Productos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="contacto.html">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- CARRITO -->
+        <div class="carrito">
+            🛒
+            <span id="contador-carrito">0</span>
+        </div>
+
+    </header>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+
+        <!-- TÍTULO -->
+        <section class="catalogo-header">
+
+            <h1>Catálogo de Productos</h1>
+
+            <p>
+                Descubrí nuestros muebles y encontrá el producto
+                ideal para tu hogar.
+            </p>
+
+        </section>
+
+
+        <!-- BUSCADOR -->
+        <section class="busqueda">
+
+            <label for="buscador">
+                Buscar productos
+            </label>
+
+            <div class="buscador-container">
+
+                <input type="search" id="buscador" placeholder="Buscar por nombre..." autocomplete="off">
+
+                <button type="button" id="btn-buscar">
+                    Buscar
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CATÁLOGO -->
+        <section class="catalogo">
+
+            <h2>Todos nuestros productos</h2>
+
+            <!--
+                JavaScript va a insertar
+                las tarjetas acá.
+            -->
+            <div id="contenedor-productos" class="productos-grid">
+            </div>
+
+            <!-- MENSAJE CUANDO NO HAY RESULTADOS -->
+            <p id="mensaje-sin-resultados" class="mensaje-sin-resultados" hidden>
+                No se encontraron productos.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <p>
+            &copy; 2026 Mueblería Hermanos Jota
+        </p>
+
+        <p>
+            Todos los derechos reservados.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="js/productos.js"></script>
+
+</body>
+
+</html>
