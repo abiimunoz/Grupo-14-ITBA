@@ -29,3 +29,7 @@ Los productos se gestionan localmente mediante JavaScript.
 ## Cómo ejecutar el proyecto
 1. Cloná el repositorio
 2. Abrí `index.html` con Live Server (o cualquier servidor local)
+
+## Links del Proyecto
+**Github:** https://github.com/abiimunoz/Grupo-14-ITBA
+**Web(host en Vecel):** https://grupo-14-itba-gamma.vercel.app/
