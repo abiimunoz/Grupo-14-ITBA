@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Catalogo from "./components/Catalogo";
 
 function App() {
   const [carrito, setCarrito] = useState([]);
@@ -59,12 +60,7 @@ function App() {
           />
           <Route
             path="/productos"
-            element={
-              <section className="pagina">
-                <h1>Productos</h1>
-                <p>Acá va a ir ProductList / ProductCard.</p>
-              </section>
-            }
+            element={<Catalogo onAddToCart={agregarAlCarrito} />}
           />
           <Route
             path="/contacto"
