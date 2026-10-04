@@ -1,0 +1,40 @@
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.product-list__buscador {
+  width: 100%;
+  max-width: 420px;
+  padding: 10px 14px;
+  border: 1px solid rgba(47, 62, 52, 0.3);
+  border-radius: 8px;
+  background-color: var(--blanco);
+  color: var(--texto);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.product-list__buscador:focus-visible {
+  outline: 2px solid var(--burnt-sienna);
+  outline-offset: 1px;
+}
+
+/* auto-fill + minmax: entran tantas columnas como quepan, sin media queries */
+.product-list__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.product-list__estado {
+  margin: 0;
+  padding: 32px 0;
+  text-align: center;
+}
+
+.product-list__estado--error {
+  color: var(--burnt-sienna);
+  font-weight: 500;
+}
