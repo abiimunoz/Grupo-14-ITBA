@@ -90,6 +90,12 @@ p {
   color: var(--dusty-rose);
 }
 
+.logo img {
+  display: block;
+  height: 40px;
+  width: auto;
+}
+
 .nav ul {
   display: flex;
   flex-wrap: wrap;
