@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Catalogo from "./components/Catalogo";
 import ContactForm from "./components/ContactForm";
 import ProductDetail from "./components/ProductDetail";
+import Home from "./components/Home";
 
 function App() {
   const [carrito, setCarrito] = useState([]);
@@ -37,30 +38,7 @@ function App() {
 
       <main>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <section className="pagina">
-                <h1>Mueblería Hermanos Jota</h1>
-                <p>
-                  El catálogo y el detalle los conectan tus compañeros. Este
-                  botón sirve para probar el carrito y el contador del NavBar.
-                </p>
-                <button
-                  type="button"
-                  className="btn-carrito"
-                  onClick={() =>
-                    agregarAlCarrito({
-                      id: 1,
-                      nombre: "Producto de prueba",
-                    })
-                  }
-                >
-                  Añadir al carrito
-                </button>
-              </section>
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route
             path="/productos"
             element={
