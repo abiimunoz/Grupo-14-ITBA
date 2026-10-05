@@ -1,20 +1,249 @@
+/* Página de inicio. Usa las variables de color y tipografía de index.css. */
+
 .home {
-  padding-top: 64px;
-  padding-bottom: 64px;
+  /* "Vara de Oro" del manual de marca: no está en index.css y solo se usa acá */
+  --vara-de-oro: #d4a437;
 }
 
-.home h1 {
-  font-size: 2.5rem;
+/* Mismo ancho que .pagina, pero sin su padding vertical:
+   acá cada sección maneja su propio espacio y su propio fondo */
+.home__contenedor {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 0 var(--espacio);
+}
+
+.home h2 {
+  max-width: 22ch;
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  font-weight: 600;
   line-height: 1.2;
+  color: var(--sage-dark);
 }
 
-.home__texto {
-  max-width: 60ch;
-  margin-bottom: 24px;
-  font-size: 1.1rem;
+.home h3 {
+  font-family: var(--fuente-titulo);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--sage-dark);
 }
 
 /* Un enlace es "inline" por defecto: sin esto el padding del botón se desarma */
 .home__boton {
   display: inline-block;
+  padding: 12px 22px;
+}
+
+/* ---------- Presentación ---------- */
+
+.home__hero {
+  padding: 48px 0 56px;
+  overflow: hidden;
+}
+
+.home__hero-grilla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.home__hero h1 {
+  margin-bottom: 20px;
+  font-size: clamp(2.5rem, 5vw, 3.8rem);
+  line-height: 1.1;
+  /* Reparte el título en renglones parejos, sin dejar una palabra sola */
+  text-wrap: balance;
+}
+
+.home__hero-texto {
+  max-width: 50ch;
+  margin-bottom: 28px;
+  font-size: 1.1rem;
+}
+
+.home__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+}
+
+.home__enlace {
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--burnt-sienna);
+  font-weight: 600;
+  color: var(--sage-dark);
+}
+
+.home__enlace:hover {
+  color: var(--burnt-sienna);
+}
+
+/* El sillón "posa" delante de un disco de color: el disco se dibuja
+   con ::before y queda detrás de la foto, que tiene fondo transparente */
+.home__figura {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  justify-self: center;
+}
+
+.home__figura::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 9%;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--vara-de-oro);
+}
+
+.home__figura img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Viaje emocional ---------- */
+
+.home__viaje {
+  padding: 72px 0;
+  background-color: var(--crema);
+}
+
+.home__etapas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+/* Las fotos son cuadradas y traen margen transparente alrededor,
+   por eso no hace falta sumarles espacio arriba ni abajo */
+.home__etapa img {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.home__etapa h3 {
+  margin-bottom: 8px;
+  padding-top: 16px;
+  border-top: 2px solid var(--burnt-sienna);
+}
+
+.home__etapa p {
+  margin: 0;
+}
+
+/* ---------- Sustentabilidad y materiales ---------- */
+
+.home__materiales {
+  padding: 72px 0;
+  background-color: var(--sage-dark);
+}
+
+.home__materiales h2 {
+  max-width: 26ch;
+  margin-bottom: 16px;
+  color: var(--warm-alabaster);
+}
+
+.home__materiales h3 {
+  margin-bottom: 8px;
+  color: var(--vara-de-oro);
+}
+
+.home__materiales-intro {
+  max-width: 60ch;
+  margin: 0;
+  font-size: 1.05rem;
+  color: rgba(244, 241, 234, 0.8);
+}
+
+.home__listas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 48px;
+}
+
+.home__lista li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(244, 241, 234, 0.18);
+  color: rgba(244, 241, 234, 0.85);
+}
+
+.home__lista strong {
+  font-weight: 600;
+  color: var(--warm-alabaster);
+}
+
+/* ---------- Showroom y taller ---------- */
+
+.home__taller {
+  padding: 72px 0;
+}
+
+.home__taller-grilla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.home__taller h2 {
+  margin-bottom: 12px;
+}
+
+.home__taller p {
+  max-width: 44ch;
+}
+
+.home__direccion {
+  margin-bottom: 12px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--sage-dark);
+}
+
+.home__taller .home__boton {
+  margin-top: 8px;
+}
+
+/* ---------- Pantallas chicas ---------- */
+
+@media (max-width: 800px) {
+  .home__hero {
+    padding: 32px 0 48px;
+  }
+
+  .home__hero-grilla,
+  .home__etapas,
+  .home__listas,
+  .home__taller-grilla {
+    grid-template-columns: 1fr;
+  }
+
+  .home__hero-grilla,
+  .home__listas,
+  .home__taller-grilla {
+    gap: 32px;
+  }
+
+  .home__figura {
+    max-width: 360px;
+  }
+
+  .home__viaje,
+  .home__materiales,
+  .home__taller {
+    padding: 48px 0;
+  }
 }
