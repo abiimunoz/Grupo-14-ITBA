@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const conectarDB = require('./db'); 
 
 // Importo los middlewares
 const logger = require('./middlewares/logger');
@@ -31,6 +32,6 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+conectarDB().then(() => {
+  app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
 });
