@@ -1,22 +1,43 @@
-//carga el array de productos.js en MongoDB. Se corre con: npm run seed
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Product = require('./models/Product');
 const productos = require('./data/productos');
 
 async function seed() {
-await mongoose.connect(process.env.MONGO_URI);
+  const uri = process.env.MONGO_URI;
 
-// El array usa "imagen" e "id"; el modelo usa "imagenUrl" y Mongo pone su propio _id.
-const documentos = productos.map(({ id, imagen, ...resto }) => ({ ...resto, imagenUrl: imagen }));
+  if (!uri) {
+    console.error('❌ Error: La variable MONGO_URI no está definida en .env');
+    process.exit(1);
+  }
 
-await Product.deleteMany({});
-const creados = await Product.insertMany(documentos);
-console.log(`${creados.length} productos cargados en ${mongoose.connection.name}`);
+  try {
+    await mongoose.connect(uri);
+    console.log(`🔌 Conectado a MongoDB: ${mongoose.connection.name}`);
 
-await mongoose.disconnect();
+    // Mapeamos los datos estáticos:
+    // - Quitamos 'id' numérico para que MongoDB genere su propio '_id' (ObjectId)
+    // - Mapeamos 'imagen' a 'imagenUrl'
+    // - Asignamos un stock inicial por defecto a cada producto
+    const documentos = productos.map(({ id, imagen, ...resto }) => ({
+      ...resto,
+      imagenUrl: imagen,
+      stock: resto.stock ?? 10,
+    }));
+
+    await Product.deleteMany({});
+    console.log('🧹 Colección de productos limpiada.');
+
+    const creados = await Product.insertMany(documentos);
+    console.log(`✅ ${creados.length} productos cargados exitosamente.`);
+
+    await mongoose.disconnect();
+    console.log('👋 Conexión cerrada.');
+    process.exit(0);
+  } catch (error) {
+    console.error('❌ Falló el proceso de seed:', error.message);
+    process.exit(1);
+  }
 }
 
-seed().catch((error) => {
-console.error(':x: Falló el seed:', error.message);
-process.exit(1);
-});
+seed();

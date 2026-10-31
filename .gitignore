@@ -1,7 +1,9 @@
 node_modules/
-<<<<<<< HEAD
-
-=======
 dist/
->>>>>>> 5cc1ebbb133363a3138b6dec91349072ad042578
 .env
+.env.local
+.DS_Store
+TAREAS_BACKEND*
+tareas_backend*
+
+tareas_backend*
