@@ -1,4 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import "./ProductDetail.css";
+
+const rutaImagen = (imagen) =>
+  !imagen || imagen.startsWith("/") || imagen.startsWith("http")
+    ? imagen
+    : `/${imagen}`;
 
 function obtenerSpec(producto, etiqueta) {
   if (!Array.isArray(producto.specs)) {
@@ -13,9 +19,17 @@ function obtenerSpec(producto, etiqueta) {
 }
 
 function ProductDetail({ producto, onAgregar, onVolver }) {
+  const [agregado, setAgregado] = useState(false);
+
   if (!producto) {
     return null;
   }
+
+  const handleAgregar = () => {
+    onAgregar(producto);
+    setAgregado(true);
+    setTimeout(() => setAgregado(false), 2000);
+  };
 
   const medidas = producto.medidas ?? obtenerSpec(producto, "Medidas");
   const materiales = producto.materiales ?? obtenerSpec(producto, "Materiales");
@@ -32,7 +46,7 @@ function ProductDetail({ producto, onAgregar, onVolver }) {
 
       <div id="detalle-producto">
         <img
-          src={producto.imagen}
+          src={rutaImagen(producto.imagen)}
           alt={producto.nombre}
           className="producto-imagen-grande"
         />
@@ -86,10 +100,15 @@ function ProductDetail({ producto, onAgregar, onVolver }) {
             <button
               type="button"
               className="btn-carrito"
-              onClick={() => onAgregar(producto)}
+              onClick={handleAgregar}
             >
               Añadir al carrito
             </button>
+            {agregado ? (
+              <span className="mensaje-agregado" role="status">
+                ✓ ¡Añadido al carrito!
+              </span>
+            ) : null}
           </div>
         </div>
       </div>

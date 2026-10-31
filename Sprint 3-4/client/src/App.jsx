@@ -2,14 +2,12 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Home from "./components/Home";
 import Catalogo from "./components/Catalogo";
 import ContactForm from "./components/ContactForm";
-import ProductDetail from "./components/ProductDetail";
-import Home from "./components/Home";
 
 function App() {
   const [carrito, setCarrito] = useState([]);
-  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   const cantidadCarrito = carrito.reduce(
     (total, item) => total + item.cantidad,
@@ -41,20 +39,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/productos"
-            element={
-              productoSeleccionado ? (
-                <ProductDetail
-                  producto={productoSeleccionado}
-                  onVolver={() => setProductoSeleccionado(null)}
-                  onAgregar={agregarAlCarrito}
-                />
-              ) : (
-                <Catalogo
-                  onAddToCart={agregarAlCarrito}
-                  onVerDetalle={setProductoSeleccionado}
-                />
-              )
-            }
+            element={<Catalogo onAddToCart={agregarAlCarrito} />}
           />
           <Route
             path="/contacto"

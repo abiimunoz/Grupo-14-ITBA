@@ -1,0 +1,137 @@
+.volver-catalogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--sage-green);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.volver-catalogo:hover {
+  color: var(--sage-dark);
+}
+
+#detalle-producto {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background-color: var(--crema);
+  border: 1px solid rgba(47, 62, 52, 0.12);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+@media (min-width: 768px) {
+  #detalle-producto {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 36px;
+  }
+}
+
+.producto-imagen-grande {
+  width: 100%;
+  max-height: 440px;
+  object-fit: contain;
+  background-color: #ece7dc;
+  border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+  .producto-imagen-grande {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+}
+
+.producto-info-detalle {
+  flex: 1 1 55%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.producto-categoria {
+  display: inline-block;
+  align-self: flex-start;
+  margin: 0;
+  padding: 4px 12px;
+  background-color: var(--dusty-rose);
+  color: var(--sage-dark);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.producto-info-detalle h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.producto-descripcion {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--texto-suave);
+  margin-bottom: 8px;
+}
+
+.producto-precio {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--burnt-sienna);
+  margin-bottom: 8px;
+}
+
+.producto-specs {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  margin: 12px 0 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(47, 62, 52, 0.12);
+}
+
+.producto-specs dt {
+  font-weight: 600;
+  color: var(--sage-dark);
+}
+
+.producto-specs dd {
+  color: var(--texto-suave);
+}
+
+.producto-botones {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.mensaje-agregado {
+  color: var(--sage-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
