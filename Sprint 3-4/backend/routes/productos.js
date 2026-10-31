@@ -1,30 +1,47 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-// Importo los productos
-const productos = require("../data/productos");
+const mongoose = require('mongoose');
+const Product = require('../models/Product');
 
-// GET / → devuelve todos los productos
-router.get("/", (req, res) => {
-  res.json(productos);
+// GET /api/productos → Devuelve todos los productos desde la base de datos
+router.get('/', async (req, res, next) => {
+  try {
+    const productos = await Product.find().sort({ createdAt: -1 });
+    res.json(productos);
+  } catch (error) {
+    next(error);
+  }
 });
 
-// GET /:id → devuelve un producto
-router.get("/:id", (req, res) => {
-  const id = Number(req.params.id);
+// GET /api/productos/:id → Devuelve un producto por su _id de MongoDB
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-  // Id no numérico o decimal → 400
-  if (!Number.isInteger(id)) {
-    return res.status(400).json({ error: "El id debe ser un número entero" });
+    // Validar que el parámetro recibido tenga formato válido de ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'El ID proporcionado no es válido' });
+    }
+
+    const producto = await Product.findById(id);
+
+    // Si no existe ningún producto con ese _id
+    if (!producto) {
+      return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+
+    res.json(producto);
+  } catch (error) {
+    next(error);
   }
-
-  const producto = productos.find((p) => p.id === id);
-
-  // No existe → 404
-  if (!producto) {
-    return res.status(404).json({ error: "Producto no encontrado" });
-  }
-
-  res.json(producto);
 });
+
+// =========================================================================
+// NOTA PARA DEV BACKEND 2:
+// Aquí se implementarán las operaciones de escritura (C-U-D):
+// - POST   /api/productos       → Crear producto (201)
+// - PUT    /api/productos/:id   → Actualizar producto existente
+// - DELETE /api/productos/:id   → Eliminar producto
+// =========================================================================
 
 module.exports = router;
