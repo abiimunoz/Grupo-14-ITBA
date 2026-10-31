@@ -18,16 +18,16 @@ app.use(cors());
 //Middleware de logging (imprime método y URL)
 app.use(logger);
 
-// 3. Middleware para parsear el cuerpo de peticiones en formato JSON
+//Middleware para parsear el cuerpo de peticiones en formato JSON
 app.use(express.json());
 
-// 4. Montaje de rutas
+//Montaje de rutas
 app.use('/api/productos', productosRouter);
 
-// 5. Middleware para rutas no encontradas (404)
+//Middleware para rutas no encontradas (404)
 app.use(notFound);
 
-// 6. Manejador centralizado de errores
+//Manejador centralizado de errores
 app.use(errorHandler);
 
 // Iniciar el servidor
