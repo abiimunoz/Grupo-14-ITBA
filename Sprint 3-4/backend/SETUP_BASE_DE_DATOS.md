@@ -85,7 +85,7 @@ El script hará lo siguiente de forma automática:
 
 ---
 
-## 🏁 Paso 4: Iniciar el Backend
+## Paso 4: Iniciar el Backend
 
 Inicia el servidor en modo desarrollo:
 
