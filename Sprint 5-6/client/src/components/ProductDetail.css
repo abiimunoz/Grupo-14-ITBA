@@ -12,6 +12,7 @@
   color: var(--sage-green);
   cursor: pointer;
   transition: color 0.2s;
+  text-decoration: none;
 }
 
 .volver-catalogo:hover {

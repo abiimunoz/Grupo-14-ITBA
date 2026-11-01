@@ -1,0 +1,82 @@
+.product-form,
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-form {
+  gap: 16px;
+  max-width: 640px;
+}
+
+.product-form__fila {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .product-form__fila {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.campo-formulario label {
+  font-weight: 600;
+  color: var(--sage-dark);
+}
+
+.campo-requerido {
+  color: var(--burnt-sienna);
+}
+
+.campo-formulario input,
+.campo-formulario textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--dusty-rose);
+  border-radius: 8px;
+  background: var(--crema);
+  font-family: inherit;
+}
+
+.form-error {
+  color: #9b2c2c;
+  font-weight: 600;
+}
+
+.acciones-admin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-secundario,
+.btn-peligro {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secundario {
+  display: inline-block;
+  background-color: var(--sage-green);
+  color: var(--blanco);
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-peligro {
+  background-color: #9b2c2c;
+  color: var(--blanco);
+}
+
+.product-card__boton {
+  display: inline-block;
+  text-align: center;
+}
