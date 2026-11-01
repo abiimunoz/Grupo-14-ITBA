@@ -14,8 +14,28 @@ const productosRouter = require('./routes/productos');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Habilitar CORS para permitir peticiones desde el frontend
-app.use(cors());
+// Configuración de CORS permitiendo orígenes locales y de producción
+const origenesPermitidos = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://localhost:3000',
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Permite peticiones sin origin (como herramientas de prueba Postman/curl o server-to-server)
+      // y orígenes autorizados o cualquier origen en entorno de desarrollo
+      if (!origin || origenesPermitidos.includes(origin) || process.env.NODE_ENV !== 'production') {
+        return callback(null, true);
+      }
+      return callback(new Error('Acceso no permitido por la política de CORS'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 // Middleware de logging (imprime método y URL)
 app.use(logger);
