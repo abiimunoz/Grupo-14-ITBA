@@ -102,3 +102,4 @@ Verás el mensaje:
 ### Comprobación rápida:
 Abre en tu navegador o cliente API (Postman/Thunder Client):
 - [`http://localhost:3001/api/productos`](http://localhost:3001/api/productos) → Debe devolver la lista completa en formato JSON desde MongoDB.
+
