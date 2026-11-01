@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import { idProducto } from "../utils/producto";
 import "./ProductList.css";
 
 // Pasa a minúsculas y saca los acentos.
 const normalizar = (texto) =>
   texto.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 
-function ProductList({ onSelectProduct }) {
+function ProductList() {
   // Los tres estados del ciclo de vida de la petición
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
@@ -84,11 +85,7 @@ function ProductList({ onSelectProduct }) {
       ) : (
         <div className="product-list__grilla">
           {productosFiltrados.map((producto) => (
-            <ProductCard
-              key={producto.id}
-              producto={producto}
-              onSelect={onSelectProduct}
-            />
+            <ProductCard key={idProducto(producto)} producto={producto} />
           ))}
         </div>
       )}

@@ -154,6 +154,7 @@ main {
 }
 
 .btn-carrito {
+  display: inline-block;
   border: none;
   border-radius: 8px;
   padding: 10px 18px;
@@ -161,10 +162,23 @@ main {
   color: var(--blanco);
   font-weight: 600;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
 }
 
 .btn-carrito:hover {
   background-color: #8a4020;
+}
+
+.formulario-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 640px;
+}
+
+.mensaje-exito {
+  margin-top: 24px;
 }
 
 .footer {

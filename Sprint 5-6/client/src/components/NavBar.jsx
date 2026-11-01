@@ -4,7 +4,9 @@ function NavBar({ cantidadCarrito }) {
   return (
     <header className="header">
       <div className="logo">
-        <img src="/assets/img/logo.svg" alt="Hermanos Jota" />
+        <NavLink to="/">
+          <img src="/assets/img/logo.svg" alt="Hermanos Jota" />
+        </NavLink>
       </div>
 
       <nav className="nav" aria-label="Navegación principal">
@@ -19,6 +21,9 @@ function NavBar({ cantidadCarrito }) {
           </li>
           <li>
             <NavLink to="/contacto">Contacto</NavLink>
+          </li>
+          <li>
+            <NavLink to="/admin/crear-producto">Nuevo producto</NavLink>
           </li>
         </ul>
       </nav>

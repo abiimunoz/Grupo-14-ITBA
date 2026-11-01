@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./ProductForm.css";
 
 const ESTADO_INICIAL = {
   nombre: "",

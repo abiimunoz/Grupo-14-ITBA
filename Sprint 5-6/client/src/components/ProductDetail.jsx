@@ -1,10 +1,8 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { idProducto, rutaImagen } from "../utils/producto";
 import "./ProductDetail.css";
-
-const rutaImagen = (imagen) =>
-  !imagen || imagen.startsWith("/") || imagen.startsWith("http")
-    ? imagen
-    : `/${imagen}`;
+import "./ProductForm.css";
 
 function obtenerSpec(producto, etiqueta) {
   if (!Array.isArray(producto.specs)) {
@@ -18,11 +16,52 @@ function obtenerSpec(producto, etiqueta) {
   return spec?.valor;
 }
 
-function ProductDetail({ producto, onAgregar, onVolver }) {
+function ProductDetail({ onAgregar }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [producto, setProducto] = useState(null);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
   const [agregado, setAgregado] = useState(false);
 
-  if (!producto) {
-    return null;
+  useEffect(() => {
+    setCargando(true);
+    setError(null);
+
+    fetch(`/api/productos/${id}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`El servidor respondió ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => setProducto(data))
+      .catch((err) => {
+        console.error("Error al cargar el detalle:", err);
+        setError("No encontramos el producto que buscás.");
+      })
+      .finally(() => setCargando(false));
+  }, [id]);
+
+  if (cargando) {
+    return (
+      <section className="pagina">
+        <p>Cargando producto...</p>
+      </section>
+    );
+  }
+
+  if (error || !producto) {
+    return (
+      <section className="pagina">
+        <p className="form-error" role="alert">
+          {error ?? "No encontramos el producto que buscás."}
+        </p>
+        <Link to="/productos" className="volver-catalogo">
+          &larr; Volver al catálogo
+        </Link>
+      </section>
+    );
   }
 
   const handleAgregar = () => {
@@ -31,22 +70,51 @@ function ProductDetail({ producto, onAgregar, onVolver }) {
     setTimeout(() => setAgregado(false), 2000);
   };
 
+  const handleEliminar = async () => {
+    const confirmar = window.confirm(
+      `¿Eliminar “${producto.nombre}”? Esta acción no se puede deshacer.`,
+    );
+
+    if (!confirmar) {
+      return;
+    }
+
+    try {
+      const respuesta = await fetch(`/api/productos/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!respuesta.ok) {
+        throw new Error(`El servidor respondió ${respuesta.status}`);
+      }
+
+      navigate("/productos");
+    } catch (err) {
+      console.error("Error al eliminar el producto:", err);
+      setError(
+        "No se pudo eliminar. Confirmá que el backend tenga DELETE /api/productos/:id.",
+      );
+    }
+  };
+
+  const imagen = producto.imagenUrl || producto.imagen;
   const medidas = producto.medidas ?? obtenerSpec(producto, "Medidas");
   const materiales = producto.materiales ?? obtenerSpec(producto, "Materiales");
   const precioFormateado =
     typeof producto.precio === "number"
       ? producto.precio.toLocaleString("es-AR")
       : producto.precio;
+  const idActual = idProducto(producto);
 
   return (
     <section className="detalle-producto-section pagina">
-      <button type="button" className="volver-catalogo" onClick={onVolver}>
+      <Link to="/productos" className="volver-catalogo">
         &larr; Volver al catálogo
-      </button>
+      </Link>
 
       <div id="detalle-producto">
         <img
-          src={rutaImagen(producto.imagen)}
+          src={rutaImagen(imagen)}
           alt={producto.nombre}
           className="producto-imagen-grande"
         />
@@ -63,6 +131,10 @@ function ProductDetail({ producto, onAgregar, onVolver }) {
           ) : null}
 
           <p className="producto-precio">${precioFormateado}</p>
+
+          {producto.stock != null ? (
+            <p>Stock: {producto.stock}</p>
+          ) : null}
 
           {medidas || materiales || producto.specs?.length ? (
             <dl className="producto-specs">
@@ -109,6 +181,22 @@ function ProductDetail({ producto, onAgregar, onVolver }) {
                 ✓ ¡Añadido al carrito!
               </span>
             ) : null}
+          </div>
+
+          <div className="acciones-admin">
+            <Link
+              to={`/admin/editar-producto/${idActual}`}
+              className="btn-secundario"
+            >
+              Editar
+            </Link>
+            <button
+              type="button"
+              className="btn-peligro"
+              onClick={handleEliminar}
+            >
+              Eliminar
+            </button>
           </div>
         </div>
       </div>
